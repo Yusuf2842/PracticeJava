@@ -31,16 +31,19 @@ public class calculatorClass {
      */
     public void promptUserExpression() {
         String input;
+        String whitespaceRemovedInput;
         boolean validInput;
         do {
             System.out.println("Enter expression: ");
             input = scnr.nextLine();
             validInput = isValidInput(input);
+            whitespaceRemovedInput = removeWhitespace(input);
             if (!validInput) {
                 System.out.println("Invalid expression! Please try again.");
             } else {
-                System.out.println("Bruh");
-                setUserExpression(input);
+                System.out.println("2. Pass 'promptUserExpression");
+                setUserExpression(whitespaceRemovedInput);
+                System.out.println("3. Pass 'removeWhiteSpace'");
             }
         } while (!validInput);
     }
@@ -51,6 +54,7 @@ public class calculatorClass {
      * @return {@code true} if the input is a valid expression, {@code false} otherwise.
      */
     private boolean isValidInput(String input) {
+        System.out.println("1. Pass 'isValidInput'");
         return input.matches("^[0-9+\\-*/\\s]+$");
     }
 
@@ -64,41 +68,11 @@ public class calculatorClass {
 
     /**
      * Gets the user number stored in the calculator.
-     * @return The user number as double
+     * @return The user number as string
      */
     public String getUserExpression() {
         return this.userExpression;
     }
-
-    /**
-     * Adds the value of the modifying number to the user number
-     * and the result is stored as the new user number.
-     * Use {@link #setUserNumber(double)} to set the initial user number.
-     */
-    // public void additionMethod() {
-    //     double sum = this.userNumber += this.modifyingNumber;
-    //     setUserNumber(sum);
-    // }
-
-    /**
-     * Subtracts the value of the modifying number to the user number
-     * and the result is stored as the new user number.
-     * Use {@link #setUserNumber(double)} to set the initial user number.
-     */
-    // public void subtractionMethod() {
-    //     double difference = this.userNumber - this.modifyingNumber;
-    //     setUserNumber(difference);
-    // }
-
-    /**
-     * Multiplies the values of the modifying number to the user number
-     * and the result is stored as the new user number.
-     * Use {@link #setUserNumber(double)} to set the initial user number.
-     */
-    // public void multiplicationMethod() {
-    //     double product = this.userNumber * this.modifyingNumber;
-    //     setUserNumber(product);
-    // }
 
     public double multiplicationMethod(String expression) {
         String[] factors = expression.split("\\*|/");
@@ -106,7 +80,7 @@ public class calculatorClass {
         for (int i = 1; i < factors.length; i += 2) {
             double factor = Double.parseDouble(factors[i + 1]);
             if (factors[i].equals("*")) {
-                multiplier += factor;
+                multiplier *= factor;
             } else {
                 multiplier /= factor;
             }
@@ -114,32 +88,26 @@ public class calculatorClass {
         return multiplier;
     }
 
-    /**
-     * Divides the values of the modifying number to the user number
-     * and the result is stored as the new user number.
-     * Use {@link #setUserNumber(double)} to set the initial user number.
-     */
-    // public void divisionMethod() {
-    //     double quotient = this.userNumber / this.modifyingNumber;
-    //     setUserNumber(quotient);
-    // }
-
     private double evaluateAdditionSubtraction(String expression) {
         String[] terms = expression.split("\\+|-");
         double total = 0.0;
         for (String term : terms) {
+
             if (term.contains("*") || term.contains("/")) {
-                // Evaluate multiplication and division
+                double result = multiplicationMethod(expression);
+                total = result + 10;
+                System.out.println("Has mult/div");
             } else {
                 // Evaluate addition and subtraction
+                System.out.println("Does not have mult/div");
             }
         }
         return total;
     }
 
-    // public String removeWhitespace(String input) {
-    //     return input.replaceAll("\\s", "");
-    // }
+    public String removeWhitespace(String input) {
+        return input.replaceAll("\\s", "");
+    }
 
     public static void main(String[] args) {
 
@@ -151,7 +119,8 @@ public class calculatorClass {
         // String expression = scnr.nextLine();
 
         String test = myCalculator.getUserExpression();
-        System.out.println(test);
+        System.out.println("Output: " + test);
+        myCalculator.evaluateAdditionSubtraction(test);
     }
 
 }
