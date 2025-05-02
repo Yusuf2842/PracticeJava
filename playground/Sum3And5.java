@@ -2,9 +2,6 @@ package playground;
 
 public class Sum3And5 {
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
      
         int sum = 0;
