@@ -1,4 +1,4 @@
-# 🏛️ Java Project Outline: University Registrar
+University Project Outline
 
 ## Goal
 Build a text-based application to manage students and courses, focusing on core OOP, classes, loops, and ArrayLists.
